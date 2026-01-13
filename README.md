@@ -73,69 +73,10 @@ This behavior closely mirrors real-world authentication systems used in producti
 
 ---
 
-## 📂 Project Structure
-Access-Hub/
-│
-├── client/                       
-│   ├── public/
-│   │   ├── favicon.ico
-│   │   └── index.html
-│   │
-│   ├── src/
-│   │   ├── assets/              
-│   │   │   └── logo.png
-│   │   │
-│   │   ├── components/             
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── Footer.jsx
-│   │   │   └── Loader.jsx
-│   │   │
-│   │   ├── pages/                 
-│   │   │   ├── Login.jsx
-│   │   │   ├── Signup.jsx
-│   │   │   ├── Dashboard.jsx
-│   │   │   └── Profile.jsx
-│   │   │
-│   │   ├── routes/               
-│   │   │   └── PrivateRoute.jsx
-│   │   │
-│   │   ├── services/             
-│   │   │   └── authService.js
-│   │   │
-│   │   ├── utils/                 
-│   │   │   └── auth.js
-│   │   │
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── index.css
-│   │
-│   ├── .env                       
-│   ├── vercel.json                 
-│   ├── package.json
-│   └── vite.config.js
-│
-├── server/                        
-│   ├── config/
-│   │   └── db.js                  
-│   │
-│   ├── controllers/
-│   │   └── authController.js      
-│   │
-│   ├── middleware/
-│   │   └── authMiddleware.js       
-│   │
-│   ├── models/
-│   │   └── User.js                
-│   │
-│   ├── routes/
-│   │   └── authRoutes.js          
-│   │
-│   ├── .env                        
-│   ├── package.json
-│   └── server.js
-│
-├── .gitignore
-├── README.md
+## File structure
+
+
+
 
 
 
