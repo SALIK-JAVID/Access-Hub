@@ -2,15 +2,12 @@
 // it is used for HTTP requests from the browser.
 import axios from "axios"
 // const API_URL = "http://localhost:3000/api/auth";
-const API_URL = axios.create({
-  baseURL: "https://access-hub-yc3e.onrender.com/"
-
-});
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const registerUser = async (data) => {
-    return axios.post(`${API_URL}/register`, data); //here the data is name, email, and password.
+    return axios.post(`${API_URL}/register`, data, { withCredentials: true }); //here the data is name, email, and password.
   };
   
   export const loginUser = async (data) => {
-    return axios.post(`${API_URL}/login`, data);
+    return axios.post(`${API_URL}/login`, data, { withCredentials: true });
   };
