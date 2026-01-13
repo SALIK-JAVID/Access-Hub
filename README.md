@@ -55,20 +55,25 @@ This behavior closely mirrors real-world authentication systems used in producti
 
 ---
 
-## 📂 Project Structure (Frontend)
+## 📂 Project Structure 
 
-src/
-├── components/
-│ ├── ProtectedRoute.jsx
-├── pages/
-│ ├── Login.jsx
-│ ├── Signup.jsx
-│ ├── Dashboard.jsx
-│ ├── Profile.jsx
-├── services/
-│ ├── authService.js
-├── App.jsx
-├── main.jsx
+/access-hub (Root Folder)
+├── client/                # React/Vite Frontend
+│   ├── src/
+│   ├── public/
+│   ├── .gitignore         # Ignores frontend node_modules & dist
+│   ├── package.json
+│   └── vite.config.js
+├── server/                # Node/Express Backend
+│   ├── config/            # db.js lives here
+│   ├── models/            # Mongoose schemas
+│   ├── routes/            # Auth routes
+│   ├── .env               # (HIDDEN) Your MONGO_URI
+│   ├── .gitignore         # Ignores backend node_modules & .env
+│   ├── package.json
+│   └── server.js
+├── .gitignore             # Root ignore (handles .DS_Store, etc.)
+└── README.md              # Project documentation
 
 
 ---
