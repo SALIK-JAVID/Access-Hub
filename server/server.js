@@ -3,7 +3,7 @@ const cors = require("cors")
 const connectDB =require("./config/db")
 const dotenv = require("dotenv")
 
-
+const PORT = process.env.PORT || 8000;
 
 dotenv.config();      //this will load the environmental variables.
 connectDB(); //connecting mongo
@@ -24,6 +24,6 @@ app.get('/', (req, res) => {
   res.send('Server Running....')
 })
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`)
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`)
 })
