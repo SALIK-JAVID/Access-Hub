@@ -9,7 +9,7 @@ const Profile = () => {
       <h1 className='text-3xl font-bold mb-4'>
             Access Hub Profile
         </h1>
-        <img src='src/assets/header_img.png'
+        <img src='/header_img.png'
         className='h-45'/>
         <p>
           This is the profile section of your Access Hub
