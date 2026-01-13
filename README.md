@@ -2,7 +2,7 @@
   <img src="./cover.png" alt="Access Hub Cover" width="100%" />
 </p>
 
-#  Access Hub - Authentication System
+# Access Hub - Authentication System
 
 **Access Hub** is a modern, secure authentication system built using **React** and a **Node.js backend**, designed to demonstrate real-world authentication flows such as protected routes, login redirection, and local storage handling.
 
@@ -10,9 +10,15 @@ This project focuses on **clean architecture**, **user experience**, and **scala
 
 ---
 
+## Live Demo
+
+- **Frontend (Vercel):** https://access-hub-five.vercel.app
+- **Backend (Render):** https://access-hub-yc3e.onrender.com
+
 ## Features
 
-###  Implemented
+### Implemented
+
 - User **Signup & Login**
 - **JWT-based authentication**
 - **Protected routes** using React Router
@@ -27,12 +33,11 @@ This project focuses on **clean architecture**, **user experience**, and **scala
 
 ## 🧭 Authentication Flow
 
-- New users sign up → redirected to login
-- Logged-in users are redirected to the **Dashboard**
-- Protected pages (e.g., Profile) require authentication
-- If a user tries to access a protected route while logged out:
-  - They are redirected to the login page
-  - After successful login, they are redirected **back to the original page**
+1. User signs up → data stored securely in MongoDB
+2. User logs in → JWT token generated
+3. Token stored on client
+4. Protected routes validate token
+5. User redirected to intended route after login
 
 This behavior closely mirrors real-world authentication systems used in production apps.
 
@@ -41,24 +46,34 @@ This behavior closely mirrors real-world authentication systems used in producti
 ## 🛠 Tech Stack
 
 ### Frontend
-- React
+
+- React (Vite)
 - React Router DOM
 - Axios
 - Tailwind CSS
 - React Toastify
 
 ### Backend
+
 - Node.js
 - Express.js
-- MongoDB
-- JWT Authentication
+- MongoDB (Atlas)
+- Mongoose
+- JWT (JSON Web Tokens)
+- bcrypt.js
+- CORS
 
 ---
 
-## 📂 Project Structure 
+### Deployment
 
+- **Frontend:** Vercel
+- **Backend:** Render
+- **Database:** MongoDB Atlas
 
+---
 
+## 📂 Project Structure
 
 ---
 
@@ -67,6 +82,7 @@ This behavior closely mirrors real-world authentication systems used in producti
 The following features are planned to make **Access Hub** production-ready:
 
 ### 🔐 Authentication & Security
+
 - Email verification using **6-digit OTP**
 - Password reset via email
 - Refresh token implementation
@@ -74,12 +90,14 @@ The following features are planned to make **Access Hub** production-ready:
 - Role-based access control (Admin/User)
 
 ### 📧 Email Services
+
 - SMTP integration for:
   - Account verification
   - Password reset
   - Login alerts
 
 ### ⚙️ Backend Improvements
+
 - Centralized error handling
 - Rate limiting for auth APIs
 - Input validation using Joi / Zod
@@ -87,6 +105,7 @@ The following features are planned to make **Access Hub** production-ready:
 - Secure cookie-based auth option
 
 ### 🧑‍💻 User Experience
+
 - Edit profile functionality
 - Session persistence
 - Account settings page
@@ -97,19 +116,32 @@ The following features are planned to make **Access Hub** production-ready:
 ## Why This Project?
 
 Access Hub was built to:
+
 - Understand **real-world authentication patterns**
 - Practice **secure frontend-backend integration**
 - Demonstrate production-style routing logic
 - Create a **resume-ready project** showcasing best practices
 
 ---
-## Deployment 
-We’ll deploy:
-- Frontend → Vercel
 
-- Backend → Render
+> ⚠️ Never commit `.env` files to GitHub
 
-- Database → MongoDB Atlas
+## 🛠️ Setup Instructions (Local)
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/SALIK-JAVID/Access-Hub.git
+cd Access-Hub
+For backend:
+cd server
+npm install
+npm start
+For Frontend:
+cd client
+npm install
+npm run dev
+```
 
 ## 📄 License
 
@@ -117,7 +149,7 @@ This project is open-source and available under the **MIT License**.
 
 ---
 
-##  Contributions
+## Contributions
 
 Contributions, issues, and feature requests are welcome.  
 Feel free to fork the repository and submit a pull request.
@@ -125,4 +157,3 @@ Feel free to fork the repository and submit a pull request.
 ---
 
 ### ⭐ If you like this project, consider giving it a star!
-
