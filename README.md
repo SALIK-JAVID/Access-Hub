@@ -2,7 +2,7 @@
   <img src="./cover.png" alt="Access Hub Cover" width="100%" />
 </p>
 
-# 🔐 Access Hub - Authentication System
+#  Access Hub - Authentication System
 
 **Access Hub** is a modern, secure authentication system built using **React** and a **Node.js backend**, designed to demonstrate real-world authentication flows such as protected routes, login redirection, and local storage handling.
 
