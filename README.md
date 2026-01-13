@@ -57,23 +57,7 @@ This behavior closely mirrors real-world authentication systems used in producti
 
 ## 📂 Project Structure 
 
-/access-hub (The folder you open in VS Code)
-├── client/                # All React/Frontend files go here
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   ├── vite.config.js
-│   └── .gitignore         # Specific to frontend
-├── server/                # All Express/Backend files go here
-│   ├── config/            # Put your db.js here
-│   ├── models/            
-│   ├── routes/            
-│   ├── server.js
-│   ├── package.json
-│   ├── .env               # Your MongoDB URI (Hidden)
-│   └── .gitignore         # Specific to backend
-├── .gitignore             # The "Master" ignore for the whole project
-└── README.md              # Documentation
+
 
 
 ---
