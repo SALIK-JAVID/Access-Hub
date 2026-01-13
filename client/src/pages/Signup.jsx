@@ -39,7 +39,7 @@ const Signup = () => {
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded-lg shadow-md w-96"
       >
-        <img src='/public/vector/default-monochrome-black.svg'/>
+        <img src='/default-monochrome-black.svg'/>
         <h2 className="text-2xl font-bold mb-4 text-center">
             Sign Up
             </h2>
