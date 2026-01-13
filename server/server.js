@@ -15,7 +15,10 @@ app.use(express.json());
 
 
 
-app.use(cors());
+app.use(cors({
+  origin: "https://access-hub.vercel.app",
+  credentials : true
+}));
 
 
 

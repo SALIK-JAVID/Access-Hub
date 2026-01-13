@@ -1,7 +1,11 @@
 // Axios will help to make api calls from the backend
 // it is used for HTTP requests from the browser.
 import axios from "axios"
-const API_URL = "http://localhost:3000/api/auth";
+// const API_URL = "http://localhost:3000/api/auth";
+const API_URL = axios.create({
+  baseURL: "https://access-hub-yc3e.onrender.com/"
+
+});
 
 export const registerUser = async (data) => {
     return axios.post(`${API_URL}/register`, data); //here the data is name, email, and password.
