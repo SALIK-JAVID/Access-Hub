@@ -16,7 +16,7 @@ app.use(express.json());
 
 
 app.use(cors({
-  origin: "https://access-hub.vercel.app",
+  origin: "https://access-hub-five.vercel.app/",
   credentials : true
 }));
 
