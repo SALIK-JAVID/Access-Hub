@@ -3,14 +3,14 @@
 import axios from "axios"
 // const API_URL = "http://localhost:3000/api/auth";
 const API_URL = axios.create({
-  origin: "https://access-hub-five.vercel.app",
-  credentials: true
-})
+  baseURL: "https://access-hub-yc3e.onrender.com/api/auth",
+  withCredentials: true,
+});
 
 export const registerUser = async (data) => {
-    return axios.post(`${API_URL}/register`, data,{credentials: true}); //here the data is name, email, and password.
+    return API_URL.post("/register", data); //here the data is name, email, and password.
   };
   
   export const loginUser = async (data) => {
-    return axios.post(`${API_URL}/login`, data,{credentials: true});
+    return API_URL.post("/login", data);
   };
