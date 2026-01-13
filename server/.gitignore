@@ -1,0 +1,11 @@
+# Server gitignore
+node_modules/
+.env
+logs/
+*.log
+
+
+
+dist/
+build/
+.DS_Store (for Mac users)
