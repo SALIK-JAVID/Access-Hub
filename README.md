@@ -74,6 +74,70 @@ This behavior closely mirrors real-world authentication systems used in producti
 ---
 
 ## 📂 Project Structure
+Access-Hub/
+│
+├── client/                         # Frontend (React + Vite)
+│   ├── public/
+│   │   ├── favicon.ico
+│   │   └── index.html
+│   │
+│   ├── src/
+│   │   ├── assets/                 # Images, icons, logos
+│   │   │   └── logo.png
+│   │   │
+│   │   ├── components/             # Reusable UI components
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   └── Loader.jsx
+│   │   │
+│   │   ├── pages/                  # Application pages
+│   │   │   ├── Login.jsx
+│   │   │   ├── Signup.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   └── Profile.jsx
+│   │   │
+│   │   ├── routes/                 # Route protection
+│   │   │   └── PrivateRoute.jsx
+│   │   │
+│   │   ├── services/               # API calls
+│   │   │   └── authService.js
+│   │   │
+│   │   ├── utils/                  # Helper functions
+│   │   │   └── auth.js
+│   │   │
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   │
+│   ├── .env                        # Frontend environment variables
+│   ├── vercel.json                 # Vercel routing config
+│   ├── package.json
+│   └── vite.config.js
+│
+├── server/                         # Backend (Node + Express)
+│   ├── config/
+│   │   └── db.js                   # MongoDB connection
+│   │
+│   ├── controllers/
+│   │   └── authController.js       # Login & Signup logic
+│   │
+│   ├── middleware/
+│   │   └── authMiddleware.js       # JWT verification
+│   │
+│   ├── models/
+│   │   └── User.js                 # User schema
+│   │
+│   ├── routes/
+│   │   └── authRoutes.js           # Auth routes
+│   │
+│   ├── .env                        # Backend environment variables
+│   ├── package.json
+│   └── server.js
+│
+├── .gitignore
+├── README.md
+
+
 
 ---
 
