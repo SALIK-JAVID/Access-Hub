@@ -23,6 +23,7 @@ app.use(cors({
 
 
 app.use("/api/auth", require("./routes/authRoutes"));   //specifies the routes in the backend.
+app.use("/api/admin",require("./controllers/authController")); //this will specify the admin routes in the backend.
 app.get('/', (req, res) => {
   res.send('Server Running....')
 })
