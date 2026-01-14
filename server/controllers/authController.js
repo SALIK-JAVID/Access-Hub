@@ -61,6 +61,11 @@ exports.loginUser = async (req, res) => {
         if (!isMatch) {
           return res.status(400).json({ message: "Invalid credentials" });
         }
+        if(user.status === "bloacked"){
+          return res.status(403).json({
+            message:"Your Account has been blocked by the admin, Contact admin for further changes",
+          });
+        }
     
         //  Generate token
         const token = jwt.sign(
