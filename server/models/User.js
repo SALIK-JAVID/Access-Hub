@@ -24,6 +24,14 @@ const userSchema = new mongoose.Schema(
         required:true,
         minlength: [6, 'Password should have min 6 characters']
 
+    },
+    status:{
+        type:String,
+        requierd:true,
+        enum: ["active", "blocked"],
+        default:"active",
+
+
     }
 }
 );
