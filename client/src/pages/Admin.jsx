@@ -20,7 +20,7 @@ const Admin = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, []);   //use effect wether something happens return this code!
 
   const handleBlock = async (id) => {
     try {
@@ -46,7 +46,8 @@ const Admin = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Admin Panel</h1>
+      <h1 className="text-2xl font-bold mb-4">Access Hub : 
+      Admin Panel</h1>
       <UserTable
         users={users}
         onBlock={handleBlock}

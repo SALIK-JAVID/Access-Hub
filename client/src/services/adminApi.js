@@ -6,6 +6,7 @@ const API_BASE_URL = "https://access-hub-yc3e.onrender.com/api/admin";
 export const getAllUsers = async () => {
   const res = await axios.get(`${API_BASE_URL}/users`);
   return res.data;
+   
 };
 
 // Block user
