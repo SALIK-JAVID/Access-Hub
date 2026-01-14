@@ -14,11 +14,19 @@ exports.registerUser = async (req, res) => {
         return res.status(400).json({ message: "All fields are required" });
       }
   
-      //  Check existing user
+      //  Check existing user & its status
       const userExists = await User.findOne({ email });
-      if (userExists) {
-        return res.status(400).json({ message: "User already exists" });
+      if(userExists) {
+      if(userExists.status === "blocked") {
+        return res.status(403).json({
+          message:"Your account has been blocked by the admin, you cannot register again"
+        });
       }
+      
+        return res.status(400).json({ message: "User already exists" });
+      
+      }
+
   
       //  Hash password
       const salt = await bcrypt.genSalt(10); //adding a random string to password before it is hashed.
