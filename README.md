@@ -75,6 +75,52 @@ This behavior closely mirrors real-world authentication systems used in producti
 
 ## File structure
 
+AccessHub/
+│
+├── client/                  # Frontend (React + Vite)
+│   ├── src/
+│   │   ├── pages/
+│   │   │   ├── Login.jsx
+│   │   │   ├── Signup.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── Profile.jsx
+│   │   │   └── Admin.jsx
+│   │   │
+│   │   ├── components/
+│   │   │   └── UserTable.jsx
+│   │   │
+│   │   ├── services/
+│   │   │   ├── authService.js
+│   │   │   └── adminApi.js
+│   │   │
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   │
+│   └── vite.config.js
+│
+├── server/                  # Backend (Node + Express)
+│   ├── config/
+│   │   └── db.js
+│   │
+│   ├── models/
+│   │   └── User.js
+│   │
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   └── adminRoutes.js
+│   │
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   └── adminController.js
+│   │
+│   ├── middleware/
+│   │   └── authMiddleware.js
+│   │
+│   ├── server.js
+│   └── .env
+│
+└── README.md
+
 
 
 
