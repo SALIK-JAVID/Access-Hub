@@ -38,8 +38,14 @@ This project focuses on **clean architecture**, **user experience**, and **scala
 3. Token stored on client
 4. Protected routes validate token
 5. User redirected to intended route after login
+6. admin can search the user by email or name
 
 This behavior closely mirrors real-world authentication systems used in production apps.
+
+⚠️ Note:
+The /admin route is currently not protected.
+It is assumed that only authorized administrators will access this panel.
+(This is a deliberate design choice for learning and demonstration.)
 
 ---
 
