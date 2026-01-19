@@ -8,11 +8,12 @@ const Admin = () => {
   const [loading, setLoading] = useState(true);
   // adding the pagination logic here!
   const[currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState(""); //finding the user from email and name.
   const usersPerPage = 2;
 
-  const fetchUsers = async () => {
+  const fetchUsers = async (searchText = "") => {
     try {
-      const data = await getAllUsers();
+      const data = await getAllUsers(searchText);
       setUsers(data);
     } catch (error) {
       toast.error("Failed to fetch users");
@@ -22,14 +23,14 @@ const Admin = () => {
   };
 
   useEffect(() => {
-    fetchUsers();
-  }, []);   //use effect wether something happens return this code!
+    fetchUsers(search);
+  }, [search]);   //use effect wether something happens return this code!
 
   const handleBlock = async (id) => {
     try {
       await blockUser(id);
       toast.success("User blocked");
-      fetchUsers();
+      fetchUsers(search);
     } catch {
       toast.error("Failed to block user");
     }
@@ -62,6 +63,14 @@ const totalPages = Math.ceil(users.length / usersPerPage);
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Access Hub : 
       Admin Panel</h1>
+      {/* search pannel */}
+      <input 
+      type ="text"
+      placeholder="Search by name or email"
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="border p-2 mb-4 w-full rounded"
+      />
       <UserTable
         users={currentUsers}
         onBlock={handleBlock}
@@ -70,7 +79,7 @@ const totalPages = Math.ceil(users.length / usersPerPage);
       <div className="flex items-center gap-4 mt-4">
   <button
     onClick={() => setCurrentPage((prev) => prev - 1)}
-    
+
     disabled={currentPage === 1}    //we can use currentPage+1
     className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
   >
