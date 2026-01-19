@@ -70,7 +70,8 @@ const totalPages = Math.ceil(users.length / usersPerPage);
       <div className="flex items-center gap-4 mt-4">
   <button
     onClick={() => setCurrentPage((prev) => prev - 1)}
-    disabled={currentPage === 1}
+    
+    disabled={currentPage === 1}    //we can use currentPage+1
     className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
   >
     Previous
