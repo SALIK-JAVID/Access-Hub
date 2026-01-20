@@ -3,7 +3,8 @@
 import axios from "axios"
 // const API_URL = "http://localhost:3000/api/auth";
 const API_URL = axios.create({
-  baseURL: "https://access-hub-yc3e.onrender.com/api/auth",
+  baseURL: "https://access-hub-yc3e.onrender.com/api/auth",    //for rendering
+  // baseURL:"http://localhost:8000/api/auth",  //for local host
   withCredentials: true,
 });
 

@@ -2,11 +2,11 @@ import axios from "axios";
 
 // this call the backend admin api
 const API_BASE_URL = "https://access-hub-yc3e.onrender.com/api/admin";
-
+// const API_BASE_URL = "http://localhost:8000/api/auth";
 // Get all users
 export const getAllUsers = async (search="") => {
   const res = await axios.get(`${API_BASE_URL}/users`,{
-params: { search }  
+params: { search },  
   });
   return res.data; 
 };
