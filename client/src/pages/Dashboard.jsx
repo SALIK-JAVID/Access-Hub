@@ -3,9 +3,18 @@ import { useNavigate } from 'react-router-dom'
 import { useRef } from 'react'; //adding lazy loading and infinite scroll effect.
 import { useEffect } from 'react';
 import { useState } from 'react';
+const TOTAL_USERS = 50;
+const LOAD_COUNT = 10;
 const Dashboard = () => {
-const [count, setCount] = useState(10); //ten initally
+const [visibleCount, setVisibleCount] = useState(LOAD_COUNT); //ten initally
 const loaderRef = useRef(null);
+
+
+// create dummy users
+const users = Array.from({ length: TOTAL_USERS }, (_, i) => ({
+  id: i + 1,
+  avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=user${i + 1}`,
+}));
 
     const navigate = useNavigate();
 
@@ -20,20 +29,21 @@ const loaderRef = useRef(null);
   //  lazy loaading and infinite scroll: logic
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setCount( count + 10 ); // load 10 more
+      ([entry]) => {
+        if (
+          entry.isIntersecting &&
+          visibleCount < users.length
+        ) {
+          setVisibleCount((prev) => prev + LOAD_COUNT);
         }
       },
       { threshold: 1 }
     );
 
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current); //that value 
-    }
+    if (loaderRef.current) observer.observe(loaderRef.current);
 
-    return () => observer.disconnect();   //stop watching the elements.
-  }, []);
+    return () => observer.disconnect();
+  }, [visibleCount, users.length]);
   return (
     <>
     
@@ -54,26 +64,38 @@ const loaderRef = useRef(null);
       >
         Profile
       </button>
-      {/* Displaying Avatar from dice-bear */}
-       <div className='p-6'>
-       <h1 className='text-xl font-bold mb-4'>User Avatars</h1>
-       <div className="grid grid-cols-5 gap-4">
-        {Array.from({ length: count }).map((_, index) => (
+      <div className="p-6">
+    <h2 className="text-2xl font-semibold mb-6 text-gray-800">
+      User Dashboard
+    </h2>
+
+    {/* Avatar Grid */}
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      {users.slice(0, visibleCount).map((user) => (
+        <div
+          key={user.id}
+          className="flex items-center justify-center bg-gray-100 rounded-xl p-2 shadow-sm hover:shadow-md transition"
+        >
           <img
-            key={index}
-            src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${index}`}
+            src={user.avatar}
             alt="avatar"
-            className="w-20 h-20"
+            loading="lazy"
+            className="w-20 h-20 object-cover rounded-lg"
           />
-        ))}
-      </div>
-
-      {/* This div triggers loading more */}
-      <div ref={loaderRef} className="h-10"></div>
-
-      </div>
-
+        </div>
+      ))}
     </div>
+
+    {/* Intersection Observer Target */}
+    <div
+      ref={loaderRef}
+      className="h-10 flex items-center justify-center mt-6 text-sm text-gray-500"
+    >
+      {visibleCount < users.length && "Loading more users..."}
+    </div>
+  </div>
+
+        </div>
     </>
     
   )
