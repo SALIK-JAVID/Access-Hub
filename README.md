@@ -28,6 +28,9 @@ This project focuses on **clean architecture**, **user experience**, and **scala
 - Clean UI styled with **Tailwind CSS**
 - Notifications using **React Toastify**
 - API communication via **Axios**
+- Admin panel for user management
+- Search users by name or email
+- Lazy Loading & Infinite Scroll (Frontend) 
 
 ---
 

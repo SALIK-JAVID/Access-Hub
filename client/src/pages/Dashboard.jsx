@@ -11,7 +11,7 @@ const loaderRef = useRef(null);
 
 
 // create dummy users
-const users = Array.from({ length: TOTAL_USERS }, (_, i) => ({
+const users = Array.from({ length: TOTAL_USERS } , (_, i) => ({
   id: i + 1,
   avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=user${i + 1}`,
 }));
