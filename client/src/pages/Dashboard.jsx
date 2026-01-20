@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useRef } from 'react'; //adding lazy loading and infinite scroll effect.
 import { useEffect } from 'react';
 import { useState } from 'react';
-const TOTAL_USERS = 50;
+const TOTAL_USERS = 500;
 const LOAD_COUNT = 10;
 const Dashboard = () => {
 const [visibleCount, setVisibleCount] = useState(LOAD_COUNT); //ten initally
