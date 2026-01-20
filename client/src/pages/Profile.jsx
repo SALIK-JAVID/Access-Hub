@@ -7,7 +7,7 @@ const Profile = () => {
     const boxRef =useRef(null);  //this will create a refrence object so that react can have a direct access to the DOM elements.
     const[visible , setVisible] = useState(false);
 
-    // this is the 
+    // this is the logic:
     useEffect(() => {
       const observer = new IntersectionObserver(
         ([entry]) => {
@@ -15,7 +15,7 @@ const Profile = () => {
         },
         { threshold: 0.5 } //50% visibility 
       );
-  
+      
       if (boxRef.current) observer.observe(boxRef.current);
   
       return () => observer.disconnect();
@@ -26,7 +26,7 @@ const Profile = () => {
     <> 
     {/* example of intersection observer. */}
      <div style={{ height: "150vh", padding: "40px" }}>
-      <h2>Scroll Down 👇</h2>
+      <h2>Scroll Down to </h2>
 
       <div
         ref={boxRef}
