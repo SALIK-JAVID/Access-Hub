@@ -66,7 +66,7 @@ const users = Array.from({ length: TOTAL_USERS } , (_, i) => ({
       </button>
       <div className="p-6">
     <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-      User Dashboard
+      User Avatars
     </h2>
 
     {/* Avatar Grid */}
