@@ -50,7 +50,7 @@ const fetchUsers = async () =>{
     fetchUsers();
   }, []);
 
-  // 🔹 Intersection Observer
+  // Intersection Observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
