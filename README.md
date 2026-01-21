@@ -23,13 +23,14 @@ This project focuses on **clean architecture**, **user experience**, and **scala
 - **JWT-based authentication**
 - **Protected routes** using React Router
 - Automatic **redirection after login**
-  - Users are redirected back to the page they originally tried to access
+- Users are redirected back to the page they originally tried to access
 - Secure **logout**
 - Clean UI styled with **Tailwind CSS**
 - Notifications using **React Toastify**
 - API communication via **Axios**
 - Admin panel for user management
 - Search users by name or email
+- Intersection observer
 - Lazy Loading & Infinite Scroll (Frontend) 
 
 ---
