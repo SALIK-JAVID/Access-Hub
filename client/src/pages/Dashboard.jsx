@@ -3,18 +3,36 @@ import { useNavigate } from 'react-router-dom'
 import { useRef } from 'react'; //adding lazy loading and infinite scroll effect.
 import { useEffect } from 'react';
 import { useState } from 'react';
-const TOTAL_USERS = 500;
+// const TOTAL_USERS = 1000; we are not keeping the 1000 users fetched instead we will use scroll based pagination.
 const LOAD_COUNT = 10;
+
 const Dashboard = () => {
-const [visibleCount, setVisibleCount] = useState(LOAD_COUNT); //ten initally
+const [users, setUsers] = useState([]); //ten initally/fetching users....
+ 
+const[isLoading, setIsLoading] = useState(false)   //this prevents duplicate fetching
 const loaderRef = useRef(null);
 
 
-// create dummy users
-const users = Array.from({ length: TOTAL_USERS } , (_, i) => ({
-  id: i + 1,
-  avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=user${i + 1}`,
-}));
+const fetchUsers = async () =>{
+  if (isLoading) return;
+  setIsLoading(true);
+//simulating a network delay: just to mimic the action of api
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  const startId = users.length + 1;
+
+  const newUsers = Array.from({ length: LOAD_COUNT } , (_, i) => ({
+    id: startId + i,
+    avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=user${ startId + i}`,
+  }));
+
+  // append users
+  setUsers((prev) => [...prev, ...newUsers]);
+  setIsLoading(false);
+  
+}
+
+
 
     const navigate = useNavigate();
 
@@ -25,16 +43,19 @@ const users = Array.from({ length: TOTAL_USERS } , (_, i) => ({
 
       const profile = () =>{
         navigate("/profile");
-      };   
-  //  lazy loaading and infinite scroll: logic
+      };
+      
+      //  Initial fetchinvg the user
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  // 🔹 Intersection Observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (
-          entry.isIntersecting &&
-          visibleCount < users.length
-        ) {
-          setVisibleCount((prev) => prev + LOAD_COUNT);
+        if (entry.isIntersecting && !isLoading) {
+          fetchUsers();
         }
       },
       { threshold: 1 }
@@ -42,8 +63,8 @@ const users = Array.from({ length: TOTAL_USERS } , (_, i) => ({
 
     if (loaderRef.current) observer.observe(loaderRef.current);
 
-    return () => observer.disconnect();
-  }, [visibleCount, users.length]);
+    return () => observer.disconnect();  //lets the observer not to observe.
+  }, [isLoading]);
   return (
     <>
     
@@ -71,7 +92,7 @@ const users = Array.from({ length: TOTAL_USERS } , (_, i) => ({
 
     {/* Avatar Grid */}
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-      {users.slice(0, visibleCount).map((user) => (
+      {users.map((user) => (
         <div
           key={user.id}
           className="flex items-center justify-center bg-gray-100 rounded-xl p-2 shadow-sm hover:shadow-md transition"
@@ -91,7 +112,7 @@ const users = Array.from({ length: TOTAL_USERS } , (_, i) => ({
       ref={loaderRef}
       className="h-10 flex items-center justify-center mt-6 text-sm text-gray-500"
     >
-      {visibleCount < users.length && "Loading more users..."}
+      {isLoading && "Loading more users...."}
     </div>
   </div>
 
