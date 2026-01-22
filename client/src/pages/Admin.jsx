@@ -20,14 +20,15 @@ useEffect(() => {
 const timerId = setTimeout(() => {
 setDebouncedSearch(search.trim());
 
-},400);
+},600);
 return () => clearTimeout(timerId) //this clear the timerid 
-},[search])
+},[search]);
 
-
+// console.log("hello")
   const fetchUsers = async (searchText = "") => {
     try {
       setLoading(true);
+      // console.log("hello2")
       const data = await getAllUsers(searchText);
       setUsers(data);
     } catch (error) {
@@ -62,7 +63,8 @@ return () => clearTimeout(timerId) //this clear the timerid
     }
   };
 
-  if (loading) return <p className="p-4">Loading users...</p>;
+  // if (loading) return <p className="p-4">Loading users...</p>;
+  
 // pagination logic :
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
@@ -87,11 +89,15 @@ const totalPages = Math.ceil(users.length / usersPerPage) || 1;
       onChange={(e) => setSearch(e.target.value)}
       className="border p-2 mb-4 w-full rounded"
       />
+
+      {loading?
+      <div>Loading...</div> :
       <UserTable
         users={currentUsers}
         onBlock={handleBlock}
         onUnblock={handleUnblock}
-      />
+      />}
+      
       <div className="flex items-center gap-4 mt-4">
   <button
     onClick={() => setCurrentPage((prev) => prev - 1)}
