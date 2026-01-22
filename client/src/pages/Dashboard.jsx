@@ -65,6 +65,14 @@ const fetchUsers = async () =>{
 
     return () => observer.disconnect();  //lets the observer not to observe.
   }, [isLoading]);
+
+  // making a fake UI that will run untill the new users are fetched.
+const AvatarSkeleton = () => {
+  <div className='flex items-center justify-center bg-gray-100 rounded-xl p-2 shadow-sm'>
+    <div className='w-20 h-20 rounded-lg bg-grey-200 animate-pulse'/>
+
+  </div>
+}
   return (
     <>
     
@@ -105,6 +113,12 @@ const fetchUsers = async () =>{
           />
         </div>
       ))}
+
+      {/* adding skeleton loaders...... */}
+      {isLoading &&
+    Array.from({ length: LOAD_COUNT }).map((_, idx) => (
+      <AvatarSkeleton key={`skeleton-${idx}`} />
+    ))}
     </div>
 
     {/* Intersection Observer Target */}
