@@ -100,9 +100,9 @@ const AvatarSkeleton = () => (
 
     {/* Avatar Grid */}
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-      {users.map((user) => (
+      {users.map((user,index) => (
         <div
-          key={user.id}
+          key={index}
           className="flex items-center justify-center bg-gray-100 rounded-xl p-2 shadow-sm hover:shadow-md transition"
         >
           <img

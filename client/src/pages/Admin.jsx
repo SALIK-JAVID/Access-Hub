@@ -11,8 +11,23 @@ const Admin = () => {
   const [search, setSearch] = useState(""); //finding the user from email and name.
   const usersPerPage = 2;
 
+
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  // we need to add debouncing : limits how often a function is called! 
+// putting a timeout function inside a useEffect
+
+useEffect(() => {
+const timerId = setTimeout(() => {
+setDebouncedSearch(search.trim());
+
+},400);
+return () => clearTimeout(timerId) //this clear the timerid 
+},[search])
+
+
   const fetchUsers = async (searchText = "") => {
     try {
+      setLoading(true);
       const data = await getAllUsers(searchText);
       setUsers(data);
     } catch (error) {
@@ -23,14 +38,15 @@ const Admin = () => {
   };
 
   useEffect(() => {
-    fetchUsers(search);
-  }, [search]);   //use effect wether something happens return this code!
+    fetchUsers(debouncedSearch);
+    setCurrentPage(1);
+  }, [debouncedSearch]);   //use effect wether something happens return this code!
 
   const handleBlock = async (id) => {
     try {
       await blockUser(id);
       toast.success("User blocked");
-      fetchUsers(search);
+      fetchUsers(debouncedSearch);
     } catch {
       toast.error("Failed to block user");
     }
@@ -40,7 +56,7 @@ const Admin = () => {
     try {
       await unblockUser(id);
       toast.success("User unblocked");
-      fetchUsers();
+      fetchUsers(debouncedSearch);
     } catch {
       toast.error("Failed to unblock user");
     }
@@ -56,7 +72,7 @@ const Admin = () => {
   indexOfLastUser
   ); //user.slice(0,2) for first page.
 
-const totalPages = Math.ceil(users.length / usersPerPage);
+const totalPages = Math.ceil(users.length / usersPerPage) || 1;
 
 
   return (

@@ -34,6 +34,34 @@ This project focuses on **clean architecture**, **user experience**, and **scala
 - Lazy Loading & Infinite Scroll (Frontend) 
 
 ---
+##  New Feature: Skeleton Loader + Infinite Scroll (No Libraries)
+
+Access Hub now includes a smooth, modern **infinite scroll** experience for the avatar grid along with a **skeleton loader** (built without any external UI libraries).
+
+### What it does
+- Loads users in **batches of 10** (`LOAD_COUNT = 10`)
+- Uses **IntersectionObserver** to detect when you reach the bottom
+- Simulates an API call with a short delay to mimic real network behavior
+- Shows **skeleton placeholders** while the next batch is being fetched
+- Appends new users to the existing list (no page refresh)
+
+###  How it works (High Level)
+1. The Dashboard starts with an empty `users` array.
+2. `fetchUsers()` generates the next 10 users using the current `users.length` as a cursor.
+3. While fetching, `isLoading` becomes `true`, and the UI renders `LOAD_COUNT` skeleton cards.
+4. When data arrives, skeletons disappear and new avatars are appended.
+5. IntersectionObserver triggers the next fetch automatically as you scroll.
+
+###  Key Implementation Notes
+- **No preloaded dataset** (no `TOTAL_USERS` / no `MAX_USERS`)
+- A **loading lock** prevents duplicate fetches:
+  - The fetch function exits early if `isLoading === true`
+- Skeleton loader uses simple Tailwind + `animate-pulse`:
+  - No external UI dependencies
+
+###  UX Result
+Users see a responsive avatar grid that keeps loading more content as they scroll, with clean skeleton placeholders during fetch time — similar to real-world apps like Instagram/LinkedIn feeds.
+
 
 ## 🧭 Authentication Flow
 
