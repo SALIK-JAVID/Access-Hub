@@ -67,12 +67,12 @@ const fetchUsers = async () =>{
   }, [isLoading]);
 
   // making a fake UI that will run untill the new users are fetched.
-const AvatarSkeleton = () => {
+const AvatarSkeleton = () => (
   <div className='flex items-center justify-center bg-gray-100 rounded-xl p-2 shadow-sm'>
-    <div className='w-20 h-20 rounded-lg bg-grey-200 animate-pulse'/>
+    <div className='w-20 h-20 rounded-lg bg-gray-200 animate-pulse'/>
 
   </div>
-}
+)
   return (
     <>
     
