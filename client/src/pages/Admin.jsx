@@ -24,11 +24,11 @@ setDebouncedSearch(search.trim());
 return () => clearTimeout(timerId) //this clear the timerid 
 },[search]);
 
-// console.log("hello")
+
   const fetchUsers = async (searchText = "") => {
     try {
       setLoading(true);
-      // console.log("hello2")
+      
       const data = await getAllUsers(searchText);
       setUsers(data);
     } catch (error) {
@@ -64,7 +64,7 @@ return () => clearTimeout(timerId) //this clear the timerid
   };
 
   // if (loading) return <p className="p-4">Loading users...</p>;
-  
+
 // pagination logic :
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
