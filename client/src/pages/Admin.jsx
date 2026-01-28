@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
-import { getAllUsers, blockUser, unblockUser } from "../services/adminApi";
+import { getAllUsers, blockUser, unblockUser, createUser } from "../services/adminApi";
+//where admin can add the new user.
+import AddUserModal from "../components/AddUserModal";
+
 import UserTable from "../components/UserTable";
 import { toast } from "react-toastify";
+
 
 const Admin = () => {
   const [users, setUsers] = useState([]);
@@ -12,9 +16,14 @@ const Admin = () => {
   const usersPerPage = 2;
 
 
+  // where admin can add a new user:(add user)
+  const[showModal, setShowModal] = useState(false);
+
+
   const [debouncedSearch, setDebouncedSearch] = useState("");
   // we need to add debouncing : limits how often a function is called! 
 // putting a timeout function inside a useEffect
+
 
 useEffect(() => {
 const timerId = setTimeout(() => {
@@ -63,6 +72,18 @@ return () => clearTimeout(timerId) //this clear the timerid
     }
   };
 
+  // handling the new user entered by the admin.
+  const handleCreateUser = async (userData) => {
+    try {
+      await createUser(userData);
+      toast.success("User created successfully");
+      setShowModal(false);
+      fetchUsers(debouncedSearch); // refresh table
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to create user");
+    }
+  };
+
   // if (loading) return <p className="p-4">Loading users...</p>;
 
 // pagination logic :
@@ -79,8 +100,29 @@ const totalPages = Math.ceil(users.length / usersPerPage) || 1;
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Access Hub : 
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold mb-4">Access Hub : 
       Admin Panel</h1>
+      <button 
+      onClick={() => setShowModal(true)}
+      className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer"
+      >
+        Add User
+      </button>
+      {showModal && (
+  <AddUserModal
+    onClose={() => setShowModal(false)}
+    onSubmit={handleCreateUser}
+  />
+)}
+
+      </div>
+
+
+
+      
+
+
       {/* search pannel */}
       <input 
       type ="text"
