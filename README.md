@@ -2,11 +2,11 @@
   <img src="./cover.png" alt="Access Hub Cover" width="100%" />
 </p>
 
-# Access Hub - Authentication System
+# Access Hub - Authentication System & Admin System
 
-**Access Hub** is a modern, secure authentication system built using **React** and a **Node.js backend**, designed to demonstrate real-world authentication flows such as protected routes, login redirection, and local storage handling.
+**Access Hub** is a full‑stack authentication and user‑management system built with**React (Vite) on the frontend and Node.js + Express on the backend**. The project is designed to mirror real‑world authentication and admin workflows, with a strong focus on clean architecture, scalable logic, and portfolio‑ready engineering practices.
 
-This project focuses on **clean architecture**, **user experience**, and **scalable authentication logic**, making it suitable for production use and a strong addition to a developer portfolio.
+This repository intentionally balances **production‑style patterns** with learning‑oriented transparency, making it ideal for interviews, demos, and further extension.
 
 ---
 
@@ -15,9 +15,55 @@ This project focuses on **clean architecture**, **user experience**, and **scala
 - **Frontend (Vercel):** https://access-hub-five.vercel.app
 - **Backend (Render):** https://access-hub-yc3e.onrender.com
 
-## Features
+## System Architecture:
 
-### Implemented
+┌────────────────────┐
+│ Browser │
+│ (React Client) │
+│ │
+│ - Login / Signup │
+│ - Protected Routes│
+│ - Admin Panel │
+│ - Debounced Search│
+│ - Infinite Scroll │
+└─────────┬──────────┘
+│ HTTP (Axios)
+│ JWT in Headers
+▼
+┌────────────────────┐
+│ Express Server │
+│ (Node.js / API) │
+│ │
+│ Auth Routes │
+│ - /auth/login │
+│ - /auth/signup │
+│ │
+│ Admin Routes │
+│ - /admin/users │
+│ - /admin/block │
+│ - /admin/delete │
+│ - /admin/restore │
+│ │
+│ Middleware │
+│ - JWT Verify │
+│ - Status Checks │
+└─────────┬──────────┘
+│
+│ Mongoose ODM
+▼
+┌────────────────────┐
+│ MongoDB │
+│ (Atlas Cloud) │
+│ │
+│ Users Collection │
+│ - active │
+│ - blocked │
+│ - deleted (soft) │
+└────────────────────┘
+
+---
+
+## Core Features
 
 - User **Signup & Login**
 - **JWT-based authentication**
@@ -31,37 +77,76 @@ This project focuses on **clean architecture**, **user experience**, and **scala
 - Admin panel for user management
 - Search users by name or email
 - Intersection observer
-- Lazy Loading & Infinite Scroll (Frontend) 
+- Lazy Loading & Infinite Scroll (Frontend)
+- Skeleton Loader & Infinite Scroll
+- Secure logout with token cleanup
 
 ---
-##  New Feature: Skeleton Loader + Infinite Scroll (No Libraries)
+
+## Admin Panel
+
+⚠️ Important: The /admin route is intentionally not protected in this project.
+In a real‑world system, this would be secured via role‑based access control (RBAC).
+
+- View all registered users
+- Create new users (with controlled UI state)
+- Block / Unblock users
+- Soft‑delete users
+- Restore deleted users
+- View user status:
+  🟢 Active
+  ⛔ Blocked
+  🗑 Deleted
+
+- Admin Logic Highlights
+- Full CRUD operations on users
+- Debounced search (name or email)
+- Client‑side pagination
+- API‑driven state updates (no full reloads)
+
+<p align="center">
+  <img src="./admin-panel.png" alt="Access Hub admin Panel" width="100%" />
+</p>
+
+## 🚫 Blocked User Behavior
+
+- When a user is blocked:
+- ❌ Login is disabled
+- ❌ Re‑registration using the same email is blocked
+- User status is persisted in the database
+- Status is validated during authentication
+
+## Feature: Skeleton Loader + Infinite Scroll (No Libraries)
 
 Access Hub now includes a smooth, modern **infinite scroll** experience for the avatar grid along with a **skeleton loader** (built without any external UI libraries).
 
 ### What it does
+
 - Loads users in **batches of 10** (`LOAD_COUNT = 10`)
 - Uses **IntersectionObserver** to detect when you reach the bottom
 - Simulates an API call with a short delay to mimic real network behavior
 - Shows **skeleton placeholders** while the next batch is being fetched
 - Appends new users to the existing list (no page refresh)
 
-###  How it works (High Level)
+### How it works (High Level)
+
 1. The Dashboard starts with an empty `users` array.
 2. `fetchUsers()` generates the next 10 users using the current `users.length` as a cursor.
 3. While fetching, `isLoading` becomes `true`, and the UI renders `LOAD_COUNT` skeleton cards.
 4. When data arrives, skeletons disappear and new avatars are appended.
 5. IntersectionObserver triggers the next fetch automatically as you scroll.
 
-###  Key Implementation Notes
+### Key Implementation Notes
+
 - **No preloaded dataset** (no `TOTAL_USERS` / no `MAX_USERS`)
 - A **loading lock** prevents duplicate fetches:
   - The fetch function exits early if `isLoading === true`
 - Skeleton loader uses simple Tailwind + `animate-pulse`:
   - No external UI dependencies
 
-###  UX Result
-Users see a responsive avatar grid that keeps loading more content as they scroll, with clean skeleton placeholders during fetch time — similar to real-world apps like Instagram/LinkedIn feeds.
+### UX Result
 
+Users see a responsive avatar grid that keeps loading more content as they scroll, with clean skeleton placeholders during fetch time — similar to real-world apps like Instagram/LinkedIn feeds.
 
 ## 🧭 Authentication Flow
 
@@ -111,59 +196,17 @@ It is assumed that only authorized administrators will access this panel.
 
 ---
 
-## File structure
-
-
-
-
-
-
-
-
----
-## Admin Panel Features
-```
-/admin
-
-```
-⚠️ IMPORTANT NOTE
-
-The /admin route is NOT protected intentionally.
-It is assumed that only an authorized administrator will access this route.
----
-## Admin Capabilities:
-- View all registered users
-- Block users
-- Unblock users
-- See user status (Active / Blocked)
-- Frontend pagination (2 users per page)
----
-## Bloacked User Behaviour:
-- Blocked users:
-- ❌ Cannot log in
-- ❌ Cannot re-register using the same email
-- Status is stored in the database
-- Checked during authentication
----
-
 ## Future Enhancements
 
 The following features are planned to make **Access Hub** production-ready:
 
 ### 🔐 Authentication & Security
 
-- Email verification using **6-digit OTP**
-- Password reset via email
-- Refresh token implementation
-- Token expiration handling
-- Role-based access control (Admin/User)
-
-### 📧 Email Services
-
-- SMTP integration for:
-  - Account verification
-  - Password reset
-  - Login alerts
+- Email verification (OTP)
+- Password reset flow
+- Refresh tokens
+- Token expiry handling
+- Role‑based access control
 
 ### ⚙️ Backend Improvements
 
@@ -193,21 +236,22 @@ Access Hub was built to:
 
 ---
 
-> ⚠️ Never commit `.env` files to GitHub
-
-## 🛠️ Setup Instructions (Local)
-
-### 1️⃣ Clone the repository
+## 🛠️ Setup Instructions (Local Setup)
 
 ```bash
+# Clone repository
 git clone https://github.com/SALIK-JAVID/Access-Hub.git
 cd Access-Hub
-For backend:
+
+
+# Backend
 cd server
 npm install
 npm start
-For Frontend:
-cd client
+
+
+# Frontend
+cd ../client
 npm install
 npm run dev
 ```
