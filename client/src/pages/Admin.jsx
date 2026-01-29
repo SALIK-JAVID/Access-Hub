@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllUsers, blockUser, unblockUser, createUser } from "../services/adminApi";
+import { getAllUsers, blockUser, unblockUser, createUser, deleteUser, restoreUser} from "../services/adminApi";
 //where admin can add the new user.
 import AddUserModal from "../components/AddUserModal";
 
@@ -13,7 +13,7 @@ const Admin = () => {
   // adding the pagination logic here!
   const[currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState(""); //finding the user from email and name.
-  const usersPerPage = 2;
+  const usersPerPage = 10;
 
 
   // where admin can add a new user:(add user)
@@ -84,6 +84,28 @@ return () => clearTimeout(timerId) //this clear the timerid
     }
   };
 
+  // handling the deleted users :
+  const handleDelete = async (id) => {
+    try {
+      await deleteUser(id);
+      toast.success("User deleted");
+      fetchUsers(debouncedSearch);
+    } catch {
+      toast.error("Failed to delete user");
+    }
+  };
+  
+  const handleRestore = async (id) => {
+    try {
+      await restoreUser(id);
+      toast.success("User restored");
+      fetchUsers(debouncedSearch);
+    } catch {
+      toast.error("Failed to restore user");
+    }
+  };
+  
+
   // if (loading) return <p className="p-4">Loading users...</p>;
 
 // pagination logic :
@@ -138,6 +160,8 @@ const totalPages = Math.ceil(users.length / usersPerPage) || 1;
         users={currentUsers}
         onBlock={handleBlock}
         onUnblock={handleUnblock}
+        onDelete={handleDelete}
+        onRestore={handleRestore}
       />}
       
       <div className="flex items-center gap-4 mt-4">

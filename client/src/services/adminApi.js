@@ -22,6 +22,20 @@ export const unblockUser = async (id) => {
   const res = await axios.put(`${API_BASE_URL}/unblock/${id}`);
   return res.data;
 };
+
+// soft delete 
+export const deleteUser= async (id) => {
+  const res = await axios.delete(`${API_BASE_URL}/users/${id}`);
+  
+  return res.data;
+
+};
+
+// restore the user from the admin pannel:
+export const restoreUser = async (id) => {
+  const res = await axios.put(`${API_BASE_URL}/restore/${id}`);
+  return res.data;
+};
 // Admin will create the user:
 export const createUser= async (userData) => {
   const res = await axios.post(`${API_BASE_URL}/users`,userData);

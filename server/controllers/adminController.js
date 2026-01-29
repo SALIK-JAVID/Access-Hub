@@ -49,13 +49,53 @@ exports.createUser = async (req, res) => {
   }
 };
 
+// soft delete: where admin can delete user
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    // If already deleted (optional safety)
+    if (user.status === "deleted") {
+      return res.status(400).json({
+        message: "User is already deleted",
+      });
+    }
+
+    user.status = "deleted";
+    await user.save();
+
+    res.status(200).json({
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    console.error("Soft delete user error:", error);
+    res.status(500).json({
+      message: "Failed to delete user",
+    });
+  }
+};
+
+
+
 
 // Get all users
 exports.getAllUsers = async (req, res) => {
     try {
       const { search } = req.query;
   
-      let query = {};
+      let query = {
+
+        // status:{$ne:"deleted"}, //hide the soft-deleted users.
+      };
   
       if (search) {
         query = {
@@ -113,3 +153,34 @@ exports.unblockUser = async (req, res) => {
     res.status(500).json({ message: "Failed to unblock user" });
   }
 };
+
+
+// restore soft-deleted users  in the admin pannel.
+
+exports.restoreUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (user.status !== "deleted") {
+      return res.status(400).json({
+        message: "User is not deleted",
+      });
+    }
+
+    user.status = "active";
+    await user.save();
+
+    res.status(200).json({
+      message: "User restored successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to restore user",
+    });
+  }
+};
+

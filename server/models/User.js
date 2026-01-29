@@ -28,11 +28,10 @@ const userSchema = new mongoose.Schema(
     status:{
         type:String,
         requierd:true,
-        enum: ["active", "blocked"],
-        default:"active",
-
-
-    }
+        enum: ["active", "blocked","deleted"],
+        default:"active", 
+    },
+    
 }
 );
 

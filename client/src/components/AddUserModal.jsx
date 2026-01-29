@@ -1,22 +1,39 @@
 import React from 'react'
 import { useState } from 'react'
+
+
 const AddUserModal = ({onClose, onSubmit}) => {
+
+  // controlling the create state:
+const [isCreating, setIsCreating] = useState(false);
+
     const[formData, setFormData] =useState({
         name:"",
-        emial:"",
+        email:"",
         password:"",
 
     });
-    const handleChange= (e) =>{
+    const handleChange=  (e) =>{
         setFormData ({
             ...formData, [e.target.name]: e.target.value 
         })
 
     }
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); //t tells the browser, "Don't reload the page; I'll handle this with JavaScript."
-        onSubmit(formData);
-        onClose();
+        try {
+          setIsCreating(true); 
+          await onSubmit(formData); // wait for API 
+          onClose(); 
+        } catch (error) {
+          // error toast already handled in Admin.jsx
+        } finally {
+          setIsCreating(false); 
+        }
+
+        // we dont have to close the table early
+        // onSubmit(formData);
+        // onClose();
       };
 
   return (
@@ -31,7 +48,8 @@ const AddUserModal = ({onClose, onSubmit}) => {
             placeholder="Name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full border px-3 py-2 rounded"
+            className="w-full border px-3 py-2 rounded disabled:opacity-60"
+            disabled={isCreating}
             required
           />
 
@@ -41,7 +59,8 @@ const AddUserModal = ({onClose, onSubmit}) => {
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full border px-3 py-2 rounded"
+            className="w-full border px-3 py-2 rounded disabled:opacity-60"
+            disabled={isCreating}
             required
           />
 
@@ -51,7 +70,8 @@ const AddUserModal = ({onClose, onSubmit}) => {
             placeholder="Password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full border px-3 py-2 rounded"
+            className="w-full border px-3 py-2 rounded disabled:opacity-60"
+            disabled={isCreating}
             required
           />
 
@@ -59,15 +79,17 @@ const AddUserModal = ({onClose, onSubmit}) => {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border rounded"
+              disabled={isCreating}
+              className="px-4 py-2 border rounded disabled:opacity-50"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded"
+              disabled={isCreating}
+              className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
             >
-              Create
+              {isCreating ? "Creating User..." : "Create"}
             </button>
           </div>
         </form>
