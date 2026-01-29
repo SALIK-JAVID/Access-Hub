@@ -15,6 +15,20 @@ This repository intentionally balances **production‑style patterns** with lear
 - **Frontend (Vercel):** https://access-hub-five.vercel.app
 - **Backend (Render):** https://access-hub-yc3e.onrender.com
 
+---
+
+## NOTE: ⚠️ ‼️ (Future implementations)
+## JWT Tampering Handling:
+
+- The client does not validate JWT integrity
+- All tokens are verified server-side using signature validation
+- If a token is modified, expired, or invalid, the API returns 401 Unauthorized
+- The frontend then:
+  Clears auth data
+  Shows a session error
+  Redirects to login
+
+- This follows real-world security practices where the backend is the single source of truth.
 
 ---
 
